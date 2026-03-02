@@ -35,8 +35,17 @@
                 echo "<li>$skill</li>";
             }
         }
-       echo "</ul>";
+        echo "</ul>";
         echo "<h3>Department: " . $_POST['department'] . "</h3>";
+
+        //store data in a file
+
+        $file = "data.txt";
+
+        $skills = !empty($_POST['skills']) ? implode(", ", $_POST['skills']) : "";
+
+        $data=$_POST['fname'] . ":" . $_POST['lname'] . ":" . $_POST['address'] . ":" . $skills . ":" . $_POST['department'] . "\n";
+        file_put_contents($file, $data, FILE_APPEND);
         ?>
 </body>
 </html>
