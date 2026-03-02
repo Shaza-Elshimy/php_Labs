@@ -46,6 +46,8 @@
 
         $data=$_POST['fname'] . ":" . $_POST['lname'] . ":" . $_POST['address'] . ":" . $skills . ":" . $_POST['department'] . "\n";
         file_put_contents($file, $data, FILE_APPEND);
+        header("Location: list.php");
         ?>
+       
 </body>
 </html>
