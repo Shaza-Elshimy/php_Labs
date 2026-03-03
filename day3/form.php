@@ -1,89 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-        }  
-        h2{
-            color: #333;
-            text-align: center;
-        }
-        form{
-            border: 2px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;   
-            text-align: center; 
-            width: 70%;
-            margin:20px auto;
-
-
-        }
-            input[type="text"], input[type="password"], textarea, select {
-                width: 300px;
-                padding: 10px;
-                margin: 5px 0;
-                border: 1px solid #ccc;
-                border-radius: 4px; 
-        }
-
-
-         </style>
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h2>Registration Form</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Registration Form</h2>
 
-<form action="insert.php" method="POST">
+    <form action="insert.php" method="POST" class="border p-4 rounded shadow-sm">
 
-    First Name:
-    <input type="text" name="fname"><br><br>
+        <div class="mb-3">
+            <label for="fname" class="form-label">First Name</label>
+            <input type="text" name="fname" id="fname" class="form-control">
+        </div>
 
-    Last Name:
-    <input type="text" name="lname"><br><br>
+        <div class="mb-3">
+            <label for="lname" class="form-label">Last Name</label>
+            <input type="text" name="lname" id="lname" class="form-control">
+        </div>
 
-    Address:
-    <textarea name="address"></textarea><br><br>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea name="address" id="address" class="form-control" rows="3"></textarea>
+        </div>
 
-    Country:
-    <select name="country">
-        <option value="">Select Country</option>
-        <option value="Egypt">Egypt</option>
-        <option value="USA">USA</option>
-        <option value="UK">UK</option>
-    </select><br><br>
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <select name="country" id="country" class="form-select">
+                <option value="">Select Country</option>
+                <option value="Egypt">Egypt</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+            </select>
+        </div>
 
-    Gender:
-    <input type="radio" name="gender" value="Male"> Male
-    <input type="radio" name="gender" value="Female"> Female
-    <br><br>
+        <div class="mb-3">
+            <label class="form-label d-block">Gender</label>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="gender" value="Male" id="male" class="form-check-input">
+                <label for="male" class="form-check-label">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" name="gender" value="Female" id="female" class="form-check-input">
+                <label for="female" class="form-check-label">Female</label>
+            </div>
+        </div>
 
-    Skills:<br>
-    <input type="checkbox" name="skills[]" value="JS"> JS
-    <input type="checkbox" name="skills[]" value="React"> React
-    <input type="checkbox" name="skills[]" value="nodeJs"> nodeJs
-    <input type="checkbox" name="skills[]" value="Tailwind"> Tailwind
-    <br><br>
+        <div class="mb-3">
+            <label class="form-label d-block">Skills</label>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="skills[]" value="JS" class="form-check-input" id="js">
+                <label for="js" class="form-check-label">JS</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="skills[]" value="React" class="form-check-input" id="react">
+                <label for="react" class="form-check-label">React</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="skills[]" value="nodeJs" class="form-check-input" id="nodejs">
+                <label for="nodejs" class="form-check-label">nodeJs</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="skills[]" value="Tailwind" class="form-check-input" id="tailwind">
+                <label for="tailwind" class="form-check-label">Tailwind</label>
+            </div>
+        </div>
 
-    Username:
-    <input type="text" name="username"><br><br>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
 
-    Password:
-    <input type="password" name="password"><br><br>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
 
-    Department:
-    <input type="text" name="department" value="Open Source" readonly><br><br>
-    <p>please insert code the below box</p>
+        <div class="mb-3">
+            <label for="department" class="form-label">Department</label>
+            <input type="text" name="department" id="department" value="Open Source" class="form-control" readonly>
+        </div>
 
-    Code:
-    <input type="text" name="code"><br><br>
+        <div class="mb-3">
+            <label for="code" class="form-label">Code</label>
+            <input type="text" name="code" id="code" class="form-control">
+            <small class="text-muted">Please insert the code below</small>
+        </div>
+        <div class="d-flex justify-content-between">
+            <input type="submit" value="Submit" class="btn btn-primary">
+            <input type="reset" value="Reset" class="btn btn-secondary">
+        </div>
 
-    <input type="submit" value="Submit">
-    <input type="reset" value="Reset">
-
-</form>
+    </form>
+</div>
 
 <script>
     const codeInput = document.querySelector('input[name="code"]');
@@ -96,6 +109,7 @@
             alert("Incorrect verification code. Please try again.");
         }
     });
-    </script>
+</script>
+
 </body>
 </html>

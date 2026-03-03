@@ -1,49 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-        }  
-        h2{
-            color: #333;
-        }
-        form{
-            width: 300px;
-            margin: 20px auto;
-        }
-        input[type="text"]{
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="submit"]{
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover{
-            background-color: #0056b3;
-        }
-        </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit User</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <?php
-$conn = mysqli_connect("localhost", "root", "", "iti",3307);
+<?php
+$conn = mysqli_connect("localhost", "root", "", "iti", 3307);
 $id = $_GET['id'];
 
 $result = $conn->query("SELECT * FROM users WHERE id=$id");
 $row = mysqli_fetch_assoc($result);
 
-if(!empty($_POST['update'])){
+if(isset($_POST['update'])){
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $address = $_POST['address'];
@@ -54,30 +26,76 @@ if(!empty($_POST['update'])){
 
     $conn->close();
     header("Location: list.php");
-    exit;
+}
+?>
+<?php
+$conn = mysqli_connect("localhost", "root", "", "iti", 3307);
+$id = $_GET['id'];
+
+$result = $conn->query("SELECT * FROM users WHERE id=$id");
+$row = mysqli_fetch_assoc($result);
+
+if(isset($_POST['update'])){
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $address = $_POST['address'];
+    $skills = implode(",", $_POST['skills']);
+    $department = $_POST['department'];
+
+    $conn->query("UPDATE users SET fname='$fname', lname='$lname', address='$address', skills='$skills', department='$department' WHERE id=$id");
+
+    $conn->close();
+    header("Location: list.php");
 }
 ?>
 
-<form method="post">
-    First Name: <input type="text" name="fname" value="<?= $row['fname'] ?>"><br>
-    Last Name: <input type="text" name="lname" value="<?= $row['lname'] ?>"><br>
-    Address: <input type="text" name="address" value="<?= $row['address'] ?>"><br>
-    Skills:<br>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Edit User</h2>
 
-    <?php
-    $all_skills = ['JS','React','Node.js','Tailwind'];
-    $user_skills = explode(",", $row['skills']);
+    <form method="post" class="border p-4 rounded shadow-sm">
 
-    foreach($all_skills as $s){
-        $checked = in_array($s,$user_skills) ? "checked" : "";
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" name="fname" class="form-control" value="<?= htmlspecialchars($row['fname']) ?>">
+        </div>
 
-        echo "<input type='checkbox' name='skills[]' value='$s' $checked> $s ";
-    }
-    ?>
-    <br>
-    Department: <input type="text" name="department" value="<?= $row['department'] ?>">
-    <br>
-    <input type="submit" name="update" value="Update">
-</form>
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" name="lname" class="form-control" value="<?= htmlspecialchars($row['lname']) ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" name="address" class="form-control" value="<?= htmlspecialchars($row['address']) ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label d-block">Skills</label>
+            <?php
+            $all_skills = ['JS','React','Node.js','Tailwind'];
+            $user_skills = explode(",", $row['skills']);
+
+            foreach($all_skills as $s){
+                $checked = in_array($s,$user_skills) ? "checked" : "";
+                echo "<div class='form-check form-check-inline'>
+                        <input class='form-check-input' type='checkbox' name='skills[]' value='$s' $checked>
+                        <label class='form-check-label'>$s</label>
+                      </div>";
+            }
+            ?>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Department</label>
+            <input type="text" name="department" class="form-control" value="<?= htmlspecialchars($row['department']) ?>">
+        </div>
+
+        <div class="d-grid">
+            <input type="submit" name="update" value="Update" class="btn btn-primary">
+        </div>
+
+    </form>
+</div>
+
 </body>
 </html>

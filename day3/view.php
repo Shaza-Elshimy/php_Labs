@@ -1,54 +1,46 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif
-        }  
-        
-        h2,h3{
-            color: #333;
-        }
-        ul{
-            list-style-type: square;
-            padding-left: 20px;
-
-        }
-        li{
-            margin-bottom: 5px; 
-       }
-         .back-btn{
-                display: inline-block;
-                margin-top: 20px;
-                padding: 10px 20px;
-                background-color: #007BFF;
-                color: white;
-                text-decoration: none;
-                border-radius: 4px;
-          }
-          .back-btn:hover{
-                background-color: #0056b3;
-          }
-
-     </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View User</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <?php
-    $conn = mysqli_connect("localhost", "root", "", "iti",3307);
-    $id = $_GET['id'];
+<?php
+$conn = mysqli_connect("localhost", "root", "", "iti",3307);
+$id = $_GET['id'];
 
-    
-    $result = $conn->query("SELECT * FROM users WHERE id=$id");
-    $row = mysqli_fetch_assoc($result);
+$result = $conn->query("SELECT * FROM users WHERE id=$id");
+$row = mysqli_fetch_assoc($result);
+?>
+<div class="container mt-5">
 
-    echo "<h2>".$row['fname']." ".$row['lname']."</h2>";
-    echo "<p>Address: ".$row['address']."</p>";
-    echo "<p>Skills: ".$row['skills']."</p>";
-    echo "<p>Department: ".$row['department']."</p>";
-    ?>
-<a class="back-btn" href="list.php">Back to list</a>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title"><?php echo $row['fname'] . " " . $row['lname']; ?></h2>
+            
+            <p class="card-text"><strong>Address:</strong> <?php echo $row['address']; ?></p>
+            
+            <p class="card-text"><strong>Skills:</strong></p>
+            <ul>
+                <?php
+                $skills = explode(",", $row['skills']);
+                foreach($skills as $s){
+                    echo "<li class='list-group-item'>" . $s . "</li>";
+                }
+                ?>
+            </ul>
+
+            <p class="card-text"><strong>Department:</strong> <?php echo $row['department']; ?></p>
+
+            <a href="list.php" class="btn btn-primary mt-3">Back to List</a>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>
