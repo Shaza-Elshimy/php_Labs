@@ -13,16 +13,33 @@
         table{
             border-collapse: collapse;
             width: 80%;
+            text-align: center;
             margin: 20px auto;
         }
         th, td{
             border: 1px solid #ccc;
             padding: 10px;
-            text-align: left;
         }
         th{
             background-color: #f2f2f2;
         }
+        a{
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;                
+            padding: 5px 10px;
+            border-radius: 4px; 
+        }
+        a:hover{
+            background-color: #0056b3;
+        }
+        .add-btn{
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
         </style>
 </head>
 <body>
@@ -61,6 +78,10 @@
     ?>
 
 </table>
+<?php
 
+    echo "<a class='add-btn' href='form.php'>Add New User</a>";
+
+?>
 </body>
 </html>

@@ -20,6 +20,18 @@
         li{
             margin-bottom: 5px; 
        }
+         .back-btn{
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+          }
+          .back-btn:hover{
+                background-color: #0056b3;
+          }
 
      </style>
 </head>
@@ -37,6 +49,6 @@
     echo "<p>Skills: ".$row['skills']."</p>";
     echo "<p>Department: ".$row['department']."</p>";
     ?>
-<a href="list.php">Back to list</a>
+<a class="back-btn" href="list.php">Back to list</a>
 </body>
 </html>
