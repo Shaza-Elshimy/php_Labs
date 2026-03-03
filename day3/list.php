@@ -2,6 +2,28 @@
 <html>
 <head>
     <title>Users List</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }  
+        h2{
+            color: #333;
+            text-align: center;
+        }
+        table{
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+        th, td{
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th{
+            background-color: #f2f2f2;
+        }
+        </style>
 </head>
 <body>
 
@@ -20,8 +42,9 @@
     <?php
     $conn = mysqli_connect("localhost", "root", "", "iti",3307);
 
-    $result = mysqli_query($conn, "SELECT * FROM users");
+    $result = $conn->query("SELECT * FROM users");
 
+    $conn->close();
     while($row = mysqli_fetch_assoc($result)){
         echo "<tr>";
         echo "<td>".$row['id']."</td>";
@@ -30,6 +53,9 @@
         echo "<td>".$row['address']."</td>";
         echo "<td>".$row['skills']."</td>";
         echo "<td>".$row['department']."</td>";
+        echo "<td><a href='view.php?id=$row[id]'>View</a></td>";
+        echo "<td><a href='edit.php?id=$row[id]'>Edit</a></td>";
+        echo "<td><a href='delete.php?id=$row[id]'>Delete</a></td>";
         echo "</tr>";
     }
     ?>
