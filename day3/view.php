@@ -10,7 +10,8 @@
 </head>
 <body>
 <?php
-$conn = mysqli_connect("localhost", "root", "", "iti",3307);
+
+require_once "connection.php";
 $id = $_GET['id'];
 
 $result = $conn->query("SELECT * FROM users WHERE id=$id");

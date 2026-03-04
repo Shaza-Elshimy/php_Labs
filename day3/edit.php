@@ -9,7 +9,7 @@
 <body>
 
 <?php
-$conn = mysqli_connect("localhost", "root", "", "iti", 3307);
+require_once "connection.php";
 $id = $_GET['id'];
 
 $result = $conn->query("SELECT * FROM users WHERE id=$id");
@@ -24,7 +24,6 @@ if(isset($_POST['update'])){
 
     $conn->query("UPDATE users SET fname='$fname', lname='$lname', address='$address', skills='$skills', department='$department' WHERE id=$id");
 
-    $conn->close();
     header("Location: list.php");
     exit;
 }

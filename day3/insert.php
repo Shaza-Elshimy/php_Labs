@@ -7,12 +7,7 @@
 </head>
 <body>
     <?php
-    $conn = mysqli_connect("localhost", "root", "", "iti",3307);
-
-    if(!$conn){
-        die("Connection failed");
-    }
-
+    require_once "connection.php";
     $skills = !empty($_POST['skills']) ? implode(",", $_POST['skills']) : "";
 
     $sql = "INSERT INTO users (fname, lname, address, skills, department)
@@ -20,7 +15,6 @@
 
     $conn->query($sql);
 
-    $conn->close();
     header("Location: list.php");
     ?>
 </body>

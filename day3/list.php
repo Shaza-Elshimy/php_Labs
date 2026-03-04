@@ -57,11 +57,10 @@
     </tr>
 
     <?php
-    $conn = mysqli_connect("localhost", "root", "", "iti",3307);
+    require_once "connection.php";
 
     $result = $conn->query("SELECT * FROM users");
 
-    $conn->close();
     while($row = mysqli_fetch_assoc($result)){
         echo "<tr>";
         echo "<td>".$row['id']."</td>";
