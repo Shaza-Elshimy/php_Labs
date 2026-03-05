@@ -60,8 +60,8 @@ if(empty($password)){
 }
 
 if(empty($errors)){
- $conn->query("INSERT INTO users (fname, lname, address,email, skills, department)
-            VALUES ('$fname', '$lname', '$address', '$email', '$skills', '$department')");
+ $conn->query("INSERT INTO users (fname, lname, address,email,password, skills, department)
+            VALUES ('$fname', '$lname', '$address', '$email', '$password', '$skills', '$department')");
 
     header("Location: list.php");
 }else{

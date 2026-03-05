@@ -55,10 +55,16 @@
         <th>Skills</th>
         <th>Department</th>
     </tr>
-
     <?php
     require_once "connection.php";
 
+    session_start();
+    if(!isset($_SESSION['user_id'])){
+        header("Location: login.php");
+        exit;
+    }
+
+    
     $result = $conn->query("SELECT * FROM users");
 
     while($row = mysqli_fetch_assoc($result)){
