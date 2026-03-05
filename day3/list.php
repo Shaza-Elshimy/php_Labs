@@ -62,10 +62,10 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
     <div class="nav-container">
-        <img src="uploads/<?= $img ?>" width="80" height="80"/>
+        <img src="uploads/<?= $img ?>" width="60" height="60"/>
         <span class="navbar-brand">Welcome, <?= $_SESSION['user_name'] ?></span>
         <div class="ms-auto">
-            <a href="login.php" class="btn btn-danger">Logout</a>
+            <a href="logout.php" class="btn btn-danger">Logout</a>
         </div>
     </div>
     </nav>
