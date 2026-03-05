@@ -1,3 +1,12 @@
+        <?php
+        require_once "connection.php";
+
+        session_start();
+        if(!isset($_SESSION['user_id'])){
+            header("Location: login.php");
+            exit;
+        }
+        ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +18,12 @@
         h2{
             color: #333;
             text-align: center;
+        }
+        .nav-container{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0% 20px    ;
         }
         table{
             border-collapse: collapse;
@@ -44,45 +59,49 @@
 </head>
 <body>
 
-<h2>Users Table</h2>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
+    <div class="nav-container">
+        <span class="navbar-brand">Welcome, <?= $_SESSION['user_name'] ?></span>
+        <div class="ms-auto">
+            <a href="login.php" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+    </nav>
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Address</th>
-        <th>Skills</th>
-        <th>Department</th>
-    </tr>
-    <?php
-    require_once "connection.php";
+    <div class="container mt-4">
+        <h2 class="text-center">Users List</h2>
 
-    session_start();
-    if(!isset($_SESSION['user_id'])){
-        header("Location: login.php");
-        exit;
-    }
 
-    
-    $result = $conn->query("SELECT * FROM users");
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Skills</th>
+            <th>Department</th>
+        </tr>
+        </div>
 
-    while($row = mysqli_fetch_assoc($result)){
-        echo "<tr>";
-        echo "<td>".$row['id']."</td>";
-        echo "<td>".$row['fname']."</td>";
-        echo "<td>".$row['lname']."</td>";
-        echo "<td>".$row['address']."</td>";
-        echo "<td>".$row['skills']."</td>";
-        echo "<td>".$row['department']."</td>";
-        echo "<td><a href='view.php?id=$row[id]'>View</a></td>";
-        echo "<td><a href='edit.php?id=$row[id]'>Edit</a></td>";
-        echo "<td><a href='delete.php?id=$row[id]'>Delete</a></td>";
-        echo "</tr>";
-    }
-    ?>
+        <?php
+        $result = $conn->query("SELECT * FROM users");
 
-</table>
+        while($row = mysqli_fetch_assoc($result)){
+            echo "<tr>";
+            echo "<td>".$row['id']."</td>";
+            echo "<td>".$row['fname']."</td>";
+            echo "<td>".$row['lname']."</td>";
+            echo "<td>".$row['address']."</td>";
+            echo "<td>".$row['skills']."</td>";
+            echo "<td>".$row['department']."</td>";
+            echo "<td><a href='view.php?id=$row[id]'>View</a></td>";
+            echo "<td><a href='edit.php?id=$row[id]'>Edit</a></td>";
+            echo "<td><a href='delete.php?id=$row[id]'>Delete</a></td>";
+            echo "</tr>";
+        }
+        ?>
+
+    </table>
 <?php
 
     echo "<a class='add-btn' href='form.php'>Add New User</a>";
