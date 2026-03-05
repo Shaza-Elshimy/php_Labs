@@ -23,6 +23,7 @@ if(isset($_POST['login'])){
             $user = $result->fetch_assoc();
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['fname'] . " " . $user['lname'];
+            $_SESSION['profile_pic'] = $user['profile_pic'];
             header("Location: list.php");
             exit;
         } else {

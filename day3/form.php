@@ -18,7 +18,7 @@ $errors=json_decode($_GET['errors'], true);
 <div class="container mt-5">
     <h2 class="text-center mb-4">Registration Form</h2>
 
-    <form action="connection.php" method="POST" class="border p-4 rounded shadow-sm">
+    <form action="connection.php" method="POST" enctype="multipart/form-data" class="border p-4 rounded shadow-sm">
 
         <div class="mb-3">
             <label for="fname" class="form-label">First Name</label>
@@ -123,6 +123,14 @@ $errors=json_decode($_GET['errors'], true);
             if(isset($errors['password'])){
                 echo "<small class='text-danger'>{$errors['password']}</small>";
             }
+            ?>
+        </div>
+        <div class="mb-3">
+            <label for="profile_pic" class="form-label">Profile Picture</label>
+            <input type="file" name="profile_pic" id="profile_pic" class="form-control">
+            <?php if(isset($errors['profile_pic'])){?>
+                <small class="text-danger"><?= $errors['profile_pic'] ?></small>
+            <?php } 
             ?>
         </div>
 

@@ -2,6 +2,7 @@
         require_once "connection.php";
 
         session_start();
+        $img=isset($_SESSION['profile_pic']) ? $_SESSION['profile_pic'] : "uploads/default.png";
         if(!isset($_SESSION['user_id'])){
             header("Location: login.php");
             exit;
@@ -61,6 +62,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
     <div class="nav-container">
+        <img src="uploads/<?= $img ?>" width="80" height="80"/>
         <span class="navbar-brand">Welcome, <?= $_SESSION['user_name'] ?></span>
         <div class="ms-auto">
             <a href="login.php" class="btn btn-danger">Logout</a>
