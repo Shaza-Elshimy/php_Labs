@@ -58,10 +58,18 @@ if(empty($password)){
 }else if(!preg_match("/[@$!%*?&#]/", $password)){
     $errors['password'] = "Password must contain at least one special character";
 }
+$img_name = "";
+if(isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === 0){
+    $img_name = $_FILES['profile_pic']['name'];
+    $tmp_name = $_FILES['profile_pic']['tmp_name'];
+    $upload_dir = "./uploads/";
+
+    move_uploaded_file($tmp_name, $upload_dir . $img_name);
+}
 
 if(empty($errors)){
- $conn->query("INSERT INTO users (fname, lname, address,email,password, skills, department)
-            VALUES ('$fname', '$lname', '$address', '$email', '$password', '$skills', '$department')");
+ $conn->query("INSERT INTO users (fname, lname, address,email,password, skills, department, profile_pic)
+            VALUES ('$fname', '$lname', '$address', '$email', '$password', '$skills', '$department', '$img_name')");
 
     header("Location: list.php");
 }else{
