@@ -1,9 +1,50 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "iti",3307);
+class DB{
+    private $host = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $dbname = "iti";
+    private $port = 3307;
+    private $conn;  
+    public function __construct(){
+        $this->conn = new mysqli($this->host, $this->username, $this->password, $this->dbname, $this->port);
+        if($this->conn->connect_error){
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
+    public function getConnection(){
+        return $this->conn;
+    }
 
-if(!$conn){
-    die("Connection failed");
+    public function getData($table, $condition = 1){
+        return $this->conn->query("SELECT * FROM $table WHERE $condition");
+    }
+
+    public function insertData($table, $data){
+        $columns = implode(", ", array_keys($data));
+        $values = implode("', '", array_values($data));
+        $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
+        return $this->conn->query($sql);
+    }
+
+    public function updateData($table, $data, $condition){
+        $set = "";
+        foreach($data as $column => $value){
+            $set .= "$column='$value', ";
+        }
+        $set = rtrim($set, ", ");
+        $sql = "UPDATE $table SET $set WHERE $condition";
+        return $this->conn->query($sql);
+    }
+
+    public function deleteData($table, $condition){
+        $sql = "DELETE FROM $table WHERE $condition";
+        return $this->conn->query($sql);
+    }
 }
+$db = new DB();
+$conn = $db->getConnection();
+
 if(isset($_POST['register'])){
 $errors=[];
 $fname = trim($_POST['fname']);
@@ -68,9 +109,16 @@ if(isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === 0){
 }
 
 if(empty($errors)){
- $conn->query("INSERT INTO users (fname, lname, address,email,password, skills, department, profile_pic)
-            VALUES ('$fname', '$lname', '$address', '$email', '$password', '$skills', '$department', '$img_name')");
-
+    $db->insertData("users", [
+        'fname' => $fname,
+        'lname' => $lname,
+        'address' => $address,
+        'email' => $email,
+        'password' => $password,
+        'skills' => $skills,
+        'department' => $department,
+        'profile_pic' => $img_name
+    ]);
     header("Location: list.php");
 }else{
     header(header: "Location: form.php?errors=" . json_encode($errors));

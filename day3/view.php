@@ -12,9 +12,10 @@
 <?php
 
 require_once "connection.php";
+$db = new DB();
 $id = $_GET['id'];
 
-$result = $conn->query("SELECT * FROM users WHERE id=$id");
+$result = $db->getData("users", "id=$id");
 $row = mysqli_fetch_assoc($result);
 ?>
 <div class="container mt-5">

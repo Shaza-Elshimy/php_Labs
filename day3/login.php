@@ -16,8 +16,7 @@ if(isset($_POST['login'])){
     }
 
     if(empty($errors)){
-        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-        $result = $conn->query($sql);
+        $result = $db->getData("users", "email='$email' AND password='$password'");
 
         if($result->num_rows > 0){
             $user = $result->fetch_assoc();

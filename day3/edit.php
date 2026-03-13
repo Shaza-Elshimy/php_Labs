@@ -10,9 +10,10 @@
 
 <?php
 require_once "connection.php";
+$db = new DB();
 $id = $_GET['id'];
 
-$result = $conn->query("SELECT * FROM users WHERE id=$id");
+$result = $db->getData("users", "id=$id");
 $row = mysqli_fetch_assoc($result);
 
 if(isset($_POST['update'])){
@@ -27,7 +28,14 @@ if(isset($_POST['update'])){
         move_uploaded_file($_FILES['profile_pic']['tmp_name'], "uploads/" . $img);
     }
 
-    $conn->query("UPDATE users SET fname='$fname', lname='$lname', address='$address', skills='$skills', department='$department', profile_pic='$img' WHERE id=$id");
+    $db->updateData("users", [
+        'fname' => $fname,
+        'lname' => $lname,
+        'address' => $address,
+        'skills' => $skills,
+        'department' => $department,
+        'profile_pic' => $img
+    ], "id=$id");
 
     header("Location: list.php");
     exit;

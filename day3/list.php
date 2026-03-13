@@ -1,5 +1,6 @@
         <?php
         require_once "connection.php";
+        $db = new DB();
 
         session_start();
         $img=isset($_SESSION['profile_pic']) ? $_SESSION['profile_pic'] : "uploads/default.png";
@@ -87,7 +88,7 @@
         </div>
 
         <?php
-        $result = $conn->query("SELECT * FROM users");
+        $result = $db->getData("users");
 
         while($row = mysqli_fetch_assoc($result)){
             echo "<tr>";

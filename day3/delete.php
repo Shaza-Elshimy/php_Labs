@@ -8,10 +8,10 @@
 <body>
     <?php
     require_once "connection.php";
+    $db = new DB();
 $id = $_GET['id'];
 
-$conn->query("DELETE FROM users WHERE id=$id");
-$conn->close();
+$db->deleteData("users", "id=$id");
 header("Location: list.php");
 ?>
 </body>
