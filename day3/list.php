@@ -62,10 +62,10 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
     <div class="nav-container">
-        <img src="uploads/<?= $img ?>" width="80" height="80"/>
+        <img src="uploads/<?= $img ?>" width="60" height="60"/>
         <span class="navbar-brand">Welcome, <?= $_SESSION['user_name'] ?></span>
         <div class="ms-auto">
-            <a href="login.php" class="btn btn-danger">Logout</a>
+            <a href="logout.php" class="btn btn-danger">Logout</a>
         </div>
     </div>
     </nav>
@@ -82,6 +82,7 @@
             <th>Address</th>
             <th>Skills</th>
             <th>Department</th>
+            <th>Profile Pic</th>
         </tr>
         </div>
 
@@ -96,6 +97,7 @@
             echo "<td>".$row['address']."</td>";
             echo "<td>".$row['skills']."</td>";
             echo "<td>".$row['department']."</td>";
+            echo "<td><img src='uploads/".$row['profile_pic']."' width='50' height='50'/></td>";
             echo "<td><a href='view.php?id=$row[id]'>View</a></td>";
             echo "<td><a href='edit.php?id=$row[id]'>Edit</a></td>";
             echo "<td><a href='delete.php?id=$row[id]'>Delete</a></td>";
