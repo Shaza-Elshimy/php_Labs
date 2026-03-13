@@ -21,8 +21,13 @@ if(isset($_POST['update'])){
     $address = $_POST['address'];
     $skills = implode(",", $_POST['skills']);
     $department = $_POST['department'];
+    $img = $row['profile_pic'];
+    if(isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == 0){
+        $img = time() . "_" . $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES['profile_pic']['tmp_name'], "uploads/" . $img);
+    }
 
-    $conn->query("UPDATE users SET fname='$fname', lname='$lname', address='$address', skills='$skills', department='$department' WHERE id=$id");
+    $conn->query("UPDATE users SET fname='$fname', lname='$lname', address='$address', skills='$skills', department='$department', profile_pic='$img' WHERE id=$id");
 
     header("Location: list.php");
     exit;
@@ -32,7 +37,7 @@ if(isset($_POST['update'])){
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Edit User</h2>
 
-    <form method="post" class="border p-4 rounded shadow-sm">
+    <form method="post" class="border p-4 rounded shadow-sm" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label class="form-label">First Name</label>
@@ -76,10 +81,19 @@ if(isset($_POST['update'])){
             <input type="text" name="department" class="form-control"
                    value="<?php echo $row['department']; ?>">
         </div>
-
+        <div>
+            <label class="form-label">Profile Pic</label>
+            <input type="file" name="profile_pic" class="form-control"
+            >
+        </div>
+        <br></br>
         <div class="d-grid">
             <input type="submit" name="update" value="Update"
                    class="btn btn-primary">
+        </div>
+
+        <div class="mt-3">
+            <a href="list.php" class="btn btn-secondary">Back to List</a>
         </div>
 
     </form>
